@@ -10,18 +10,15 @@
 //#include <cmath>
 //#include <iomanip>
 //
-//using namespace std;
-//
-//int main() 
-// {
-//
+//void task1_5()
+//{
 //    int n;
-//    cout << "Enter n: ";
-//    cin >> n;
+//    std::cout << "Enter n: ";
+//    std::cin >> n;
 //
-//    if (n <= 0) {
-//        cout << "The number must be natural(greater 0)\n";
-//        return 1;
+//    if (n <= 0) 
+//    {
+//        std::cout << "The number must be natural(greater 0)\n";
 //    }
 //
 //    double sum = 1.0;
@@ -29,20 +26,23 @@
 //        sum += 1.0 / sqrt(i);
 //    }
 //
-//    cout << fixed << setprecision(4);
-//    cout << "Sum = " << sum << "\n";
+//    std::cout << std::fixed << std::setprecision(4);
+//    std::cout << "Sum = " << sum << "\n";
+//}
 //
+//int main() 
+// {
+//
+//    task1_5();
 //    return 0;
 //}
-// 
+ 
 ////Exercise 2.
 ////5)S = ∑ от n = 1 до k ((-1)^(n+1) * x^(2n-1)) / (2n - 1)!.
 //
 //#include <iostream>
 //#include <cmath>
 //#include <iomanip>
-//
-//using namespace std;
 //
 //long double factorial(int n) 
 //{
@@ -54,19 +54,17 @@
 //    return result;
 //}
 //
-//int main() 
+//void task2_5()
 //{
-//
 //    int k;
 //    double x;
-//    cout << "Enter k: ";
-//    cin >> k;
-//    cout << "Enter x: ";
-//    cin >> x;
+//    std::cout << "Enter k: ";
+//    std::cin >> k;
+//    std::cout << "Enter x: ";
+//    std::cin >> x;
 //
 //    if (k <= 0) {
 //        std::cout << "The number must be natural (greater 0)\n";
-//        return 1;
 //    }
 //
 //    long double sum = 0;
@@ -76,12 +74,17 @@
 //        sum += numerator / denominator;
 //    }
 //
-//    cout << fixed << setprecision(10);
-//    cout << "Result S = " << sum << "\n";
+//    std::cout << std::fixed << std::setprecision(10);
+//    std::cout << "Result S = " << sum << "\n";
+//}
 //
+//int main() 
+//{
+//
+//    task2_5();
 //    return 0;
 //}
-// 
+ 
 ////Exercise 3
 ////5)S = ∑ от n = 1 до ∞ (5/((i+1)(i-1)))
 // 
@@ -89,24 +92,21 @@
 //#include <iomanip>
 //#include <cmath>
 //
-//int main() 
+//void task3_5()
 //{
-//    setlocale(LC_ALL, "Russian");
-//
-//    // Ввод точности вычислений
+//    //entering an accuracy
 //    double e;
-//    std::cout << "Введите точность вычислений e (e > 0): ";
+//    std::cout << "Enter an accuracy e (e > 0): ";
 //    std::cin >> e;
 //
-//    // Проверка корректности ввода
+//    //checking the correctness of the input
 //    if (e <= 0) {
-//        std::cout << "Точность должна быть больше 0\n";
-//        return 1;
+//        std::cout << "An accuracy must be greater 0\n";
 //    }
 //
-//    // Вычисление суммы
+//    //calculating the sum
 //    double sum = 0;
-//    int i = 2; // начинаем с i = 2, так как при i = 1 знаменатель обращается в 0
+//    int i = 2; //start with i = 2, since at i = 1 the denominator turns to 0
 //    double currentTerm = 5.0 / ((i + 1) * (i - 1));
 //
 //    while (std::abs(currentTerm) >= e) {
@@ -115,23 +115,20 @@
 //        currentTerm = 5.0 / ((i + 1) * (i - 1));
 //    }
 //
-//    // Вывод результата
+//    //output of the result
 //    std::cout << std::fixed << std::setprecision(10);
-//    std::cout << "Сумма ряда S = " << sum << "\n";
-//    std::cout << "Количество просуммированных членов: " << i - 2 << "\n";
+//    std::cout << "Series sum = " << sum << "\n";
+//    std::cout << "Summed terms number: " << i - 2 << "\n";
 //
+//}
+//
+//int main() 
+//{
+//    task3_5();
 //    return 0;
 //}
-// 
+ 
 //Exercise 4. 
-//Вычислить и вывести на экран значение функции F(x) на отрезке[a, b] с шагом
-//h = 0.1 и точностью E. Результат работы программы представить в виде 
-//следующей таблицы:
-//№  |Значение x |Значение функции F(x) | Количество просуммированных слагаемых n|
-//1  |___________|______________________|________________________________________|
-//2  |___________|______________________|________________________________________|
-//...|___________|______________________|________________________________________|
-// __|___________|______________________|________________________________________|
 //                x      x ^ 2   x ^ 3   x ^ 4
 //5) F(x) = 1 + ------ - ----- + ----- - ----- + ..., x ∈ [0.1; 0.9].
 //              1 * 4    2 * 5   3 * 6   4 * 7
@@ -157,7 +154,7 @@
 //    return sum;
 //}
 //
-//int main() 
+//void task4_5()
 //{
 //
 //    const double a = 0.1;
@@ -180,6 +177,13 @@
 //        cout << fixed << setprecision(4);
 //        cout << (x - a) / step + 1 << "\t" << x << "\t\t" << result << "\t\t" << n << "\n";
 //    }
+//
+//}
+//
+//int main() 
+//{
+//
+//    task4_5();
 //
 //    return 0;
 //}
