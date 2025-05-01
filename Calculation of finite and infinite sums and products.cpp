@@ -11,22 +11,26 @@
 // 1 + --  + -- +  -- + ... + --
 //     √1    √2    √3         √n
 
-//Code with Recurrent relations
-double sumSeries(int n) {
-    if (n == 1) {
-        return 2.0;  // Base case
-    }
-    return sumSeries(n - 1) + 1.0 / sqrt(n);  // Recurrent relation
-}
-
-void task1() {
-    int n;
+void task1()
+{
+    
+    int n; 
+    double s = 0.0;
+    
     std::cout << "Enter n: \n";
     std::cin >> n;
     
-    double s = sumSeries(n);
-    
-    std::cout << "S = " << s << std::endl;  // Recurrent relation
+    if (n == 1) 
+    {
+        s += 2.0;  // Base case
+        
+    } else {
+        
+        s = (n - 1) + 1.0 / sqrt(n);
+        
+    } 
+    std::cout << std::fixed << std::setprecision(4);
+    std::cout << "S = " << s << std::endl;
 }
 
 // Exercise 2. 
@@ -110,49 +114,38 @@ void task3()
 // F(x) = 1 + ------- - --------- + --------- - -------  + ..., x ∈ [0.1; 0.9].
 //            1 * 4      2 * 5       3 * 6      4 * 7
 // F(x) = 1 + (x / (1*4)) - ((x^2) / (2*5)) + ((x^3) / (3*6)) - ((x^4) / (4*7)) + ..., x ∈ [0.1; 0.9].
-
-//Code with Recurrent relations
+//
 //Auxiliary function for calculating the term of a series
-double calculateTerm(double x, double eps, int* n) 
-{
-    double currentTerm = 1.0;  // current member of the series
-    double sum = 1.0;          // row sum
-    int i = 1;                 // row member number
-    
-    // Calculating the terms of the series until the specified accuracy is reached
-    while (std::fabs(currentTerm) >= eps) {
-        currentTerm *= -x * (2*i-1) / ((i+2)*(2*i+1));
-        sum += currentTerm;
-        i++;
-    }
-    
-    *n = i;  // saving the number of members of the series
-    return sum;
+double calculateTerm(double x, int n) {
+    return pow(-1, n) * pow(x, n) / (n * (n + 3));
 }
 
 void task4() 
 {
-    
-    const double a = 0.1;    // begin of the interval
-    const double b = 0.9;    // end of the interval
-    const double h = 0.1;    // step
-    const double eps = 0.00001;  // accuracy
-    
-    std::cout << "№\tValue of x\tValue of F(x)\tThe number of summed terms n\n";
-    
-    int number = 1;  // row number in the table
-    for (double x = a; x <= b; x += h) {
-        int n;
-        double result = calculateTerm(x, eps, &n);
-        
-        std::cout << number << "\t" 
-             << std::fixed << std::setprecision(1) << x << "\t" << std::setw(16)
-             << std::fixed << std::setprecision(5) << result << "\t" << std::setw(3)
-             << n << "\n";
-        
-        number++;
+    double a = 0.1;  // begin of a segment
+    double b = 0.9;  // end of a segment 
+    double h = 0.1;  // step
+    double e = 0.0001;  //accuracy
+
+    std::cout << "\nN\t|Value x\t|Value of the F(x)\t|Number of summed terms n\n";
+
+    for (double x = a; x <= b + h / 2; x += h) {
+        double sum = 1.0; //initial value of the amount
+        int n = 1; //row member number
+        double term = calculateTerm(x, n); //current member of the series
+
+        //Summing the terms of a series to achieve accuracy
+        while (std::abs(term) > e) {
+            sum += term;
+            n++;
+            term = calculateTerm(x, n);
+        }
+
+        std::cout << std::setw(2) << std::setprecision(0) << (x - a) / h + 1 << "\t" //reducing the value to an integer
+            << std::setw(10) << std::setprecision(1) << x << "\t" //reducing the value to tenths
+            << std::setw(15) << std::setprecision(3) << sum << "\t" //reducing the value to thousandths
+            << std::setw(15) << n << "\n";
     }
-    
 }
 
 int main()
