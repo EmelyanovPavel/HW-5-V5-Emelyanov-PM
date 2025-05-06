@@ -116,36 +116,44 @@ void task3()
 // F(x) = 1 + (x / (1*4)) - ((x^2) / (2*5)) + ((x^3) / (3*6)) - ((x^4) / (4*7)) + ..., x ∈ [0.1; 0.9].
 //
 //Auxiliary function for calculating the term of a series
-double calculateTerm(double x, int n) {
-    return pow(-1, n) * pow(x, n) / (n * (n + 3));
-}
+ double calculateF(double x, double eps, int* n) 
+ {
+     double result = 1.0; // The initial value (the first term of the series = 1)
+     double term = 1.0;   // Сurrent member of the series
+     int i = 1;           // Row member number
 
-void task4() 
+     //Calculating a row sum with given accuracy
+     do {
+         term = pow(-1, i - 1) * pow(x, i) / (i * (i + 3)); //formation of the next term
+         result += term; //adding a summand to sum
+         i++;
+     } while (fabs(term) >= eps); //The specified degree of accuracy has not been reached yet
+     
+     *n = i - 1; // Writing a terms number
+     return result; //return the result with the value of the function 
+ }
+
+void task4()
 {
     double a = 0.1;  // begin of a segment
     double b = 0.9;  // end of a segment 
     double h = 0.1;  // step
-    double e = 0.0001;  //accuracy
+    double eps = 0.0001;  //accuracy
 
-    std::cout << "\nN\t|Value x\t|Value of the F(x)\t|Number of summed terms n\n";
+    // displaying the table header
+    std::cout << "N" << "\tx value" << "\tF(x) value" << "\tNumber summed terms" << std::endl;
 
-    for (double x = a; x <= b + h / 2; x += h) {
-        double sum = 1.0; //initial value of the amount
-        int n = 1; //row member number
-        double term = calculateTerm(x, n); //current member of the series
+    int count = 1; //Rows counter
+    for (double x = a; x <= b; x += h) 
+    {
+        int n;
+        double result = calculateF(x, eps, &n); //calling an auxiliary function
 
-        //Summing the terms of a series to achieve accuracy
-        while (std::abs(term) > e) {
-            sum += term;
-            n++;
-            term = calculateTerm(x, n);
-        }
+        //displaying the received data on the screen
+        std::cout << count << "\t" << std::fixed << std::setprecision(1) << x << "\t" << std::fixed << std::setprecision(6) << result << "\t" << n << std::endl;
 
-        std::cout << std::setw(2) << std::setprecision(0) << (x - a) / h + 1 << "\t" //reducing the value to an integer
-            << std::setw(10) << std::setprecision(1) << x << "\t" //reducing the value to tenths
-            << std::setw(15) << std::setprecision(3) << sum << "\t" //reducing the value to thousandths
-            << std::setw(15) << n << "\n";
-    }
+        count++;
+     }
 }
 
 int main()
